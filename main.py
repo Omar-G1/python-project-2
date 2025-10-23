@@ -50,14 +50,18 @@ while True:
     if task_choice == "1":
         task_name = input("Enter task name: ")
         task_desc = input("Enter task description: ")
-        tasks.add_task(current_user, task_name, task_desc)
-        print(f"Task '{task_name}' added successfully!")
+        # Fix: Check the return value of add_task to handle errors (e.g., duplicate or user not found)
+        if tasks.add_task(current_user, task_name, task_desc):
+            print(f"Task '{task_name}' added successfully!")
+        else:
+            print("Failed to add task. (User not found or duplicate name)")
 
     elif task_choice == "2":
         all_tasks = tasks.view_tasks(current_user)
         if not all_tasks:
             print("No tasks available.")
         else:
+            # Fix: Now that view_tasks returns a dict {id: task_info}, .items() works correctly with task IDs
             for task_id, task_info in all_tasks.items():
                 print(f"ID: {task_id}, Name: {task_info['name']}, Description: {task_info['description']}")
 
@@ -68,4 +72,4 @@ while True:
     if continue_option.lower() != "yes":
         print("Exiting Task Manager App. Goodbye!")
         break
-    print("Task Manager App is running...")  # main.py
+    print("Task Manager App is running...") 
