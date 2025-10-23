@@ -1,36 +1,46 @@
 import json
 import os
+import bcrypt
+
+
 def load_users():
     if not os.path.exists("users.json"):
         return {}
     with open("users.json", "r") as file:
         return json.load(file)
 
-def save_users(users):
+
+def save_users(users_db):  
     with open("users.json", "w") as file:
         json.dump(users_db, file, indent=4)
         
 def get_user_choice():
-    return input("Choose an option (1 or 2): ")
+    while True:
+        try:
+            choice = input("Choose an option (1 or 2): ")
+            if choice in ["1", "2"]:
+                return choice
+            else:
+                print("Invalid choice. Please try again.")
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            continue
+
 
 def authenticate_user(username, password):
-    return users_db.get(username) == password
+    if username in users_db and bcrypt.checkpw(password.encode('utf-8'), users_db[username]["password"].encode('utf-8')):
+        return True
+    return False
+
 
 def add_user(username, password):
     if username in users_db:
         return False
-    users_db[username] = password
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    users_db[username] = {"password": hashed_password.decode('utf-8'), "tasks": {}} 
     save_users(users_db)
-    return True  
+    return True
+
 
 users_db = load_users()
-user_tasks = {}  # {username: [ {name:..., description:...}, ... ] }
 
-def add_task(username, name, description):
-   
-    if username not in user_tasks:
-        user_tasks[username] = []
-    user_tasks[username].append({"name": name, "description": description})
-
-def view_tasks(username):
-    return user_tasks.get(username, [])
