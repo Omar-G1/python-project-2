@@ -1,6 +1,9 @@
+
 import json
 import os
 import bcrypt
+
+users_db = load_users()
 
 
 def load_users():
@@ -27,20 +30,17 @@ def get_user_choice():
             continue
 
 
-def authenticate_user(username, password):
+def authenticate_user(users_db, username, password):  # Added users_db here!
     if username in users_db and bcrypt.checkpw(password.encode('utf-8'), users_db[username]["password"].encode('utf-8')):
         return True
     return False
 
-
-def add_user(username, password):
+def add_user(users_db, username, password):  # Added users_db here too!
     if username in users_db:
         return False
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    users_db[username] = {"password": hashed_password.decode('utf-8'), "tasks": {}} 
+    users_db[username] = {"password": hashed_password.decode('utf-8'), "tasks": {}}
     save_users(users_db)
     return True
 
-
-users_db = load_users()
 
