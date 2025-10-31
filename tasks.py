@@ -11,8 +11,9 @@ def add_task(username, name, description):
         print("Task name already exists for this user.")
         return False
     
-    task_id = max(user_tasks.keys(), default=0) + 1
-    user_tasks[task_id] = {"name": name, "description": description}
+    existing_ids = [int(k) for k in user_tasks.keys()]
+    new_id = str((max(existing_ids) if existing_ids else 0) + 1)
+    user_tasks[new_id] = {"name": name, "description": description}
    
     users.save_users(users.users_db)
     return True
