@@ -159,13 +159,7 @@ Click **Execute** ✅
 - Make sure PostgreSQL is running
 - Check if port 8000 is free (no other app using it)
 
-## Next Steps 🚀
 
-- Push your code to GitHub
-- Deploy to AWS (EC2 or Docker)
-- Add more features (update tasks, categories, filters)
-- Write unit tests
-- Add logging and error handling
 
 ## Technologies Used 🛠️
 
@@ -175,8 +169,7 @@ Click **Execute** ✅
 - **Pydantic** - Data validation
 - **JWT** - Authentication
 - **bcrypt** - Password hashing
+- container - docker
 
-## Author ✍️
 
-omar
 
