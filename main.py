@@ -1,6 +1,14 @@
 import tasks
 import users
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+
+
 current_user = None
 
 while True:
@@ -73,3 +81,4 @@ while True:
         print("Exiting Task Manager App. Goodbye!")
         break
     print("Task Manager App is running...") 
+
