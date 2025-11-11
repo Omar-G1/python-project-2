@@ -62,7 +62,7 @@ Then in PostgreSQL, type:
 
 Open `database.py` and find this line:
 
-DATABASE_URL = "postgresql://postgres:oG1230123000@localhost:5432/taskmanager"
+DATABASE_URL = "postgresql://postgres:pass@localhost:5432/taskmanager"
 
 ### Step 7: Run the API
 python -m uvicorn main:app --reload
@@ -92,7 +92,7 @@ Go to `/docs` → Click **POST /signup** → **Try it out**
 Fill in:
 
 Username: your_username
-Password: your_password
+: your_password
 
 Click **Execute**
 
